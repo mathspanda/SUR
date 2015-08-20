@@ -21,10 +21,7 @@ class Webhook(object):
                 'obj_type': obj_type,
                 'obj_id': obj_id,
                 'action': action,
-                'credential': {
-                    'user': credential.get('user'),
-                    'password': credential.get('password')
-                },
+                'credential': credential,
                 'params': {}
             }
         }

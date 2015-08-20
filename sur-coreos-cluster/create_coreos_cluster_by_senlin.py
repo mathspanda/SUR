@@ -7,10 +7,10 @@ import argparse
 import logging
 import time
 
-from sur.client import SenlinSURClient
-from sur.action.clusters import Cluster
-from sur.action.nodes import Node
-from sur.action.profiles import Profile
+from sur.client import SURClient
+from sur.action.senlin.clusters import Cluster
+from sur.action.senlin.nodes import Node
+from sur.action.senlin.profiles import Profile
 
 LOG = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -28,7 +28,7 @@ def main():
     LOG.info('Start build coreos cluster %s...' % (args.cluster_name))
 
     # setup client
-    sc = SenlinSURClient().setup_client()
+    sc = SURClient().setup_client()
 
     # create profile
     LOG.info('Start create profile %s...' % (args.profile_name))

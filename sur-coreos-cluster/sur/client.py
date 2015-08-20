@@ -10,12 +10,18 @@ from sur.common import client as sur_client
 import keystoneclient.v3.client as ksclient
 
 
-class SenlinSURClient(object):
-
-    def __init__(self, host='localhost', port='8778', version='1'):
+class SURClient(object):
+    
+    # default senlin args
+    def __init__(self, host='localhost', port='8778', version='1',
+                 name='senlin'):
         self._add_identity_args()
-        self.endpoint = 'http://%s:%s/v%s/%s' % (
-            host, port, version, self.identity_args['tenant_id'])
+        
+        if name in ['ceilometer']:
+            self.endpoint = 'http://%s:%s/v%s' % (host, port, version)
+        elif name in ['senlin']:
+            self.endpoint = 'http://%s:%s/v%s/%s' % (
+                host, port, version, self.identity_args['tenant_id'])
 
     def _add_identity_args(self):
         self.identity_args = {}

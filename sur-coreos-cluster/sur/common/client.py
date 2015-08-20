@@ -15,7 +15,7 @@ USER_AGENT = 'python-surclient'
 SENSITIVE_HEADERS = ('X-Auth-Token',)
 
 
-class SURClient(object):
+class SURHTTPClient(object):
 
     def __init__(self, endpoint, **kwargs):
         self.endpoint = endpoint
@@ -118,4 +118,4 @@ class SURClient(object):
 
 
 def construct_sur_client(endpoint=None, **kwargs):
-    return SURClient(endpoint=endpoint, **kwargs)
+    return SURHTTPClient(endpoint=endpoint, **kwargs)
