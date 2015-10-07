@@ -3,6 +3,8 @@ Created on Aug 16, 2015
 
 '''
 
+import time
+
 from sur.client import SURClient
 from sur.action.senlin.policies import Policy
 from sur.action.senlin.policies import LoadBalancingPolicy as LBPolicy
@@ -18,19 +20,21 @@ def main():
     sc = SURClient('localhost', '8778', '1').setup_client()
 
     # create loadbalancing policy
-#     LBPolicy.policy_create(sc, 'coreos_lb', '/home/mp/Desktop/lb_policy_lbaas.spec')
+#     LBPolicy.policy_create(sc, 'coreos_lb', 'specs/lb_policy_lbaas.spec')
 
     # attach loadbalancing policy
 #     Cluster.cluster_policy_attach(sc, 'coreos_cluster', 'coreos_lb')
 
     #create scaling policy
-#     SIPolicy.policy_create(sc, 'coreos_si', '/home/mp/Desktop/scaling_policy.spec')
-#     SOPolicy.policy_create(sc, 'coreos_so', '/home/mp/Desktop/scaling_policy.spec')
+    SIPolicy.policy_create(sc, 'coreos_si', 'specs/scaling_policy.spec')
+    SOPolicy.policy_create(sc, 'coreos_so', 'specs/scaling_policy.spec')
+    time.sleep(1)
 
     # attach scaling policy
-#     Cluster.cluster_policy_attach(sc, 'coreos_cluster', 'coreos_si')
-#     Cluster.cluster_policy_attach(sc, 'coreos_cluster', 'coreos_so')
-    
+    Cluster.cluster_policy_attach(sc, 'coreos_cluster', 'coreos_si')
+    Cluster.cluster_policy_attach(sc, 'coreos_cluster', 'coreos_so')
+    time.sleep(1)
+
     # create scale-out webhook
     wb = Webhook.cluster_webhook_create(sc, 'so_webhook', 'coreos_cluster',
                                         'CLUSTER_SCALE_OUT', {})
