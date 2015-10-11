@@ -1,0 +1,7 @@
+type: os.heat.stack
+version: 1.0
+properties:
+  name: random_string_stack
+  template: specs/random_string_stack.yaml
+  environment:
+    - specs/env.yaml

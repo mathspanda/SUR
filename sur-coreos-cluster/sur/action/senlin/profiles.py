@@ -17,12 +17,19 @@ class Profile(object):
 
     @classmethod
     def profile_create(cls, sc, name, profile_type, spec, permission):
+        spec = utils.get_spec_content(spec)
+        type_name = spec.get('type', None)
+        type_version = spec.get('version', None)
+        properties = spec.get('properties', None)
         args = {
             'profile': {
                 'name': name,
                 'permission': permission,
-                'spec': utils.get_spec_content(spec),
-                'type': profile_type,
+                'spec': {
+		    'version': type_version,
+                    'type': type_name,
+                    'properties': utils.process_spec(properties)
+                },
                 'metadata': {}
             }
         }
